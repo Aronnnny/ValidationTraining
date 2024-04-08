@@ -10,4 +10,8 @@
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ValidationTraining.Infra\ValidationTraining.Infra.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -11,11 +11,14 @@ namespace ValidationTraining.Domain.Models
     public class Category : EntityBase
     {
         public string Name { get; private set; }
-        
-        public Category (string name)
+        public bool IsActive { get; private set; }
+        public List<Product> Products { get; private set; }
+
+        public Category (string name, bool isActive)
         {
             ValidateName(name);
             Name = name;
+            IsActive = isActive;
         }
 
         public void ValidateName(string name)

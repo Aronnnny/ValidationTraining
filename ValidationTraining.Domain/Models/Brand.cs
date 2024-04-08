@@ -12,6 +12,7 @@ namespace ValidationTraining.Domain.Models
     {
         public string Name { get; private set; }
         public string Image { get; private set; }
+        public List<Product> Products { get; private set; }
 
         public Brand(string name, string image) 
         {
@@ -32,7 +33,7 @@ namespace ValidationTraining.Domain.Models
 
         public void ValidateImage(string image)
         {
-            DomainExceptionValidation.ExceptionHandler(string.IsNullOrEmpty(image), "Invalid Image. Image is Required!").
+            DomainExceptionValidation.ExceptionHandler(string.IsNullOrEmpty(image), "Invalid Image. Image is Required!");
         }
     }
 }

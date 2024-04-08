@@ -10,18 +10,14 @@ namespace ValidationTraining.Domain.Models
 {
     public class User : EntityBase
     {
-        public string Name { get; protected set; }
-        public string Email { get; protected set; }
-        public string Password { get; protected set; }
-        public string PhoneNumber { get; protected set; }
-        public string CPF { get; protected set; }
-        public DateTime BirthDate { get; protected set; }
+        public string Name { get; private set; }
+        public string Email { get; private set; }
+        public string Password { get; private set; }
+        public string PhoneNumber { get; private set; }
+        public string Cpf { get; private set; }
+        public DateTime BirthDate { get; private set; }
 
-        public User(string name, string email, string password, string phoneNumber, DateTime birthDate, string cpf)
-        {
-            ValidateAndSetValues(name, email, password, phoneNumber, birthDate, cpf);
-        }
-        private void ValidateAndSetValues(string name, string email, string password, string phoneNumber, DateTime birthDate, string cpf)
+        public User(string name, string email, string password, string phoneNumber, string cpf, DateTime birthDate)
         {
             ValidateName(name);
             ValidateEmail(email);
@@ -35,7 +31,7 @@ namespace ValidationTraining.Domain.Models
             Password = password;
             PhoneNumber = phoneNumber;
             BirthDate = birthDate;
-            CPF = cpf;
+            Cpf = cpf;
         }
         private void ValidateName(string name)
         {
@@ -54,15 +50,19 @@ namespace ValidationTraining.Domain.Models
         }
         private void ValidatePhoneNumber(string phoneNumber)
         {
+            if(phoneNumber.Length > 15)
+            {
+                DomainExceptionValidation.ExceptionHandler(true, "Phone number cannot be longer than 15 characters!");
+            }
             DomainExceptionValidation.ExceptionHandler(string.IsNullOrEmpty(phoneNumber), "Invalid Phone Number. Phone Number is required!");
-        }
-        private void ValidateBirthDate(DateTime birthDate)
-        {
-            DomainExceptionValidation.ExceptionHandler(birthDate == null, "Invalid Birth Date. Birth Date is required!");
         }
         private void ValidateCPF(string cpf)
         {
             DomainExceptionValidation.ExceptionHandler(string.IsNullOrEmpty(cpf), "Invalid CPF. CPF is required!");
+        }
+        private void ValidateBirthDate(DateTime birthDate)
+        {
+            DomainExceptionValidation.ExceptionHandler(birthDate == null, "Invalid Birth Date. Birth Date is required!");
         }
     }
 }
